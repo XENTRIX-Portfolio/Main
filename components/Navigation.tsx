@@ -23,7 +23,8 @@ export default function Navigation() {
   const logoRef = useRef<HTMLAnchorElement>(null)
   const navRef = useRef<HTMLElement>(null)
 
-  useMagnetic(logoRef, 0.2)
+  // Note: useMagnetic works with motion components as they forward refs
+  useMagnetic(logoRef as React.RefObject<HTMLElement>, 0.2)
 
   useEffect(() => {
     const handleScroll = () => {
