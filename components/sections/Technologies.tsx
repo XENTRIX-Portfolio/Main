@@ -29,43 +29,39 @@ export default function Technologies() {
     <section
       id="technologies"
       ref={ref}
-      className="relative py-24 sm:py-32 section-bg-alt section-border border-t"
+      className="relative py-section-mobile md:py-section section-bg-alt section-border"
     >
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="container mx-auto px-6 md:px-12 lg:px-16 max-w-6xl">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.6, ease: 'easeOut' }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl sm:text-5xl font-bold mb-4 text-foreground">
+          <h2 className="text-section font-normal mb-4 text-foreground">
             Technologies
           </h2>
-          <p className="text-xl text-gray-400 max-w-2xl mx-auto">
+          <p className="text-body-lg text-text-secondary max-w-2xl mx-auto opacity-70">
             Our tech stack spans modern languages, frameworks, and cloud platforms
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-4 max-w-6xl mx-auto">
+        <div className="flex flex-wrap items-center justify-center gap-3 max-w-5xl mx-auto">
           {technologies.map((tech, index) => (
-            <motion.div
+            <motion.span
               key={tech.name}
-              initial={{ opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-              transition={{ duration: 0.6, delay: Math.min(index * 0.05, 0.5), ease: 'easeOut' }}
-              whileHover={{ y: -4 }}
-              className="flex flex-col items-center justify-center p-6 rounded-xl bg-gray-900/30 border border-gray-800 hover:border-primary/50 transition-all duration-300 group"
+              initial={{ opacity: 0, y: 20, scale: 0.9 }}
+              animate={isInView ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 20, scale: 0.9 }}
+              transition={{ 
+                duration: 0.5, 
+                delay: Math.min(index * 0.04, 0.6), 
+                ease: [0.33, 1, 0.68, 1] 
+              }}
+              whileHover={{ scale: 1.05, y: -2 }}
+              className="inline-flex items-center px-4 py-2 rounded-lg bg-primary/10 text-small font-medium text-text-primary border border-primary/20 hover:border-primary hover:bg-primary/15 transition-all duration-200 glass"
             >
-              <div
-                className="w-12 h-12 rounded-lg mb-3 flex items-center justify-center text-white font-bold text-sm transition-all duration-300 group-hover:scale-110"
-                style={{ backgroundColor: tech.color }}
-              >
-                {tech.name.charAt(0)}
-              </div>
-              <span className="text-sm text-gray-400 group-hover:text-gray-300 transition-colors duration-300 text-center">
-                {tech.name}
-              </span>
-            </motion.div>
+              {tech.name}
+            </motion.span>
           ))}
         </div>
       </div>

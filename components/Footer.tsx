@@ -9,11 +9,11 @@ export default function Footer() {
   }
 
   return (
-    <footer className="relative border-t border-gray-800 bg-black/50 py-12">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+    <footer className="relative border-t py-12 bg-background">
+      <div className="container mx-auto px-6 md:px-12 lg:px-16 max-w-7xl">
         <div className="flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
           {/* Copyright */}
-          <div className="text-gray-400 text-sm">
+          <div className="text-tiny text-text-muted opacity-50">
             © {new Date().getFullYear()} Xentrix. All rights reserved.
           </div>
 
@@ -23,30 +23,30 @@ export default function Footer() {
               href="https://github.com/XENTRIX-Portfolio"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-gray-400 hover:text-primary transition-colors duration-200 focus-visible:outline-none"
+              className="text-text-secondary hover:text-primary transition-colors duration-200 focus-visible:outline-none"
               aria-label="GitHub"
             >
-              <Github size={20} />
+              <Github size={18} />
             </a>
             <a
               href="mailto:contact@xentrix.co.za"
-              className="text-gray-400 hover:text-primary transition-colors duration-200 focus-visible:outline-none"
+              className="text-text-secondary hover:text-primary transition-colors duration-200 focus-visible:outline-none"
               aria-label="Email"
             >
-              <Mail size={20} />
+              <Mail size={18} />
             </a>
           </div>
 
           {/* Back to Top */}
           <motion.button
             onClick={scrollToTop}
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-            className="flex items-center space-x-2 text-gray-400 hover:text-primary transition-colors duration-200 focus-visible:outline-none"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="flex items-center space-x-2 text-text-secondary hover:text-primary transition-colors duration-200 focus-visible:outline-none"
             aria-label="Back to top"
           >
-            <span className="text-sm font-medium">Back to top</span>
-            <ArrowUp size={18} />
+            <span className="text-small font-medium">Back to top</span>
+            <ArrowUp size={16} />
           </motion.button>
         </div>
       </div>

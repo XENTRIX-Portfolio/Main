@@ -100,19 +100,19 @@ export default function Contact() {
     <section
       id="contact"
       ref={ref}
-      className="relative py-24 sm:py-32 section-bg section-border border-t"
+      className="relative py-section-mobile md:py-section section-bg section-border"
     >
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="container mx-auto px-6 md:px-12 lg:px-16 max-w-3xl">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.6, ease: 'easeOut' }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl sm:text-5xl font-bold mb-4 text-foreground">
+          <h2 className="text-section font-normal mb-4 text-foreground">
             Get In Touch
           </h2>
-          <p className="text-xl text-gray-400 max-w-2xl mx-auto">
+          <p className="text-body-lg text-text-secondary max-w-2xl mx-auto opacity-70">
             Have a project in mind? Let&apos;s discuss how we can help bring your vision to life.
           </p>
         </motion.div>
@@ -122,14 +122,14 @@ export default function Contact() {
             initial={{ opacity: 0, y: 30 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
             transition={{ duration: 0.6, delay: 0.2, ease: 'easeOut' }}
-            className="glass rounded-2xl p-8 sm:p-12"
+            className="card-premium p-10 md:p-14"
           >
             <form onSubmit={handleSubmit} className="space-y-6">
               {/* Name Field */}
               <div>
                 <label
                   htmlFor="name"
-                  className="block text-sm font-medium text-gray-300 mb-2"
+                  className="block text-small font-medium text-text-primary mb-2"
                 >
                   Name
                 </label>
@@ -140,7 +140,7 @@ export default function Contact() {
                   value={formData.name}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 input-bg border border-gray-700 dark:border-gray-700 light:border-gray-300 rounded-lg text-foreground placeholder-gray-500 dark:placeholder-gray-500 light:placeholder-gray-400 focus:outline-none focus:border-primary transition-colors duration-200"
+                  className="w-full h-12 px-4 input-bg rounded-md text-foreground placeholder:text-text-muted focus:outline-none focus:border-primary transition-colors duration-200"
                   placeholder="Your name"
                 />
               </div>
@@ -149,7 +149,7 @@ export default function Contact() {
               <div>
                 <label
                   htmlFor="email"
-                  className="block text-sm font-medium text-gray-300 mb-2"
+                  className="block text-small font-medium text-text-primary mb-2"
                 >
                   Email
                 </label>
@@ -160,7 +160,7 @@ export default function Contact() {
                   value={formData.email}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 input-bg border border-gray-700 dark:border-gray-700 light:border-gray-300 rounded-lg text-foreground placeholder-gray-500 dark:placeholder-gray-500 light:placeholder-gray-400 focus:outline-none focus:border-primary transition-colors duration-200"
+                  className="w-full h-12 px-4 input-bg rounded-md text-foreground placeholder:text-text-muted focus:outline-none focus:border-primary transition-colors duration-200"
                   placeholder="your.email@example.com"
                 />
               </div>
@@ -169,7 +169,7 @@ export default function Contact() {
               <div>
                 <label
                   htmlFor="message"
-                  className="block text-sm font-medium text-gray-300 mb-2"
+                  className="block text-small font-medium text-text-primary mb-2"
                 >
                   Message
                 </label>
@@ -180,66 +180,69 @@ export default function Contact() {
                   onChange={handleChange}
                   required
                   rows={6}
-                  className="w-full px-4 py-3 input-bg border border-gray-700 dark:border-gray-700 light:border-gray-300 rounded-lg text-foreground placeholder-gray-500 dark:placeholder-gray-500 light:placeholder-gray-400 focus:outline-none focus:border-primary transition-colors duration-200 resize-none"
+                  minLength={120}
+                  className="w-full min-h-[120px] px-4 py-3 input-bg rounded-md text-foreground placeholder:text-text-muted focus:outline-none focus:border-primary transition-colors duration-200 resize-none"
                   placeholder="Tell us about your project..."
                 />
               </div>
 
               {/* Error Message */}
               {status === 'error' && errorMessage && (
-                <div className="flex items-center space-x-2 text-red-400 bg-red-900/20 border border-red-800 rounded-lg p-4">
-                  <AlertCircle size={20} />
-                  <span className="text-sm">{errorMessage}</span>
+                <div className="flex items-center space-x-2 text-red-500 bg-red-500/10 border border-red-500/30 rounded-md p-4">
+                  <AlertCircle size={18} />
+                  <span className="text-small">{errorMessage}</span>
                 </div>
               )}
 
               {/* Success Message */}
               {status === 'success' && (
-                <div className="flex items-center space-x-2 text-green-400 bg-green-900/20 border border-green-800 rounded-lg p-4">
-                  <CheckCircle size={20} />
-                  <span className="text-sm">
+                <div className="flex items-center space-x-2 text-green-500 bg-green-500/10 border border-green-500/30 rounded-md p-4">
+                  <CheckCircle size={18} />
+                  <span className="text-small">
                     Message sent successfully! We&apos;ll get back to you soon.
                   </span>
                 </div>
               )}
 
               {/* Submit Button */}
-              <button
+              <motion.button
                 type="submit"
                 disabled={status === 'sending'}
-                className="w-full px-8 py-4 bg-primary text-background font-semibold rounded-lg hover:bg-primary/90 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed focus-visible:outline-none flex items-center justify-center space-x-2"
+                className="btn-premium w-full sm:w-auto bg-primary text-white dark:text-black font-medium flex items-center justify-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                whileHover={status !== 'sending' ? { scale: 1.02 } : {}}
+                whileTap={status !== 'sending' ? { scale: 0.98 } : {}}
               >
                 {status === 'sending' ? (
                   <>
-                    <div className="w-5 h-5 border-2 border-background border-t-transparent rounded-full animate-spin" />
+                    <div className="w-5 h-5 border-2 border-current border-t-transparent rounded-full animate-spin" />
                     <span>Sending...</span>
                   </>
                 ) : (
                   <>
-                    <Send size={20} />
+                    <Send size={18} />
                     <span>Send Message</span>
                   </>
                 )}
-              </button>
+              </motion.button>
             </form>
 
             {/* Contact Links */}
-            <div className="mt-8 pt-8 border-t border-gray-800 flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-8">
+            <div className="mt-12 pt-8 border-t flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-8">
               <a
                 href="mailto:contact@xentrix.co.za"
-                className="flex items-center space-x-2 text-gray-400 hover:text-primary transition-colors duration-200 focus-visible:outline-none"
+                className="flex items-center space-x-2 text-text-secondary hover:text-primary transition-colors duration-200 focus-visible:outline-none"
               >
-                <Mail size={20} />
-                <span>contact@xentrix.co.za</span>
+                <Mail size={18} />
+                <span className="text-small">contact@xentrix.co.za</span>
               </a>
               <a
                 href="https://github.com/XENTRIX-Portfolio"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center space-x-2 text-gray-400 hover:text-primary transition-colors duration-200 focus-visible:outline-none"
+                className="flex items-center space-x-2 text-text-secondary hover:text-primary transition-colors duration-200 focus-visible:outline-none"
               >
-                <Github size={20} />
-                <span>GitHub</span>
+                <Github size={18} />
+                <span className="text-small">GitHub</span>
               </a>
             </div>
           </motion.div>

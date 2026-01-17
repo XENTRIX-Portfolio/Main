@@ -58,31 +58,31 @@ export default function Projects({ repositories }: ProjectsProps) {
     <section
       id="projects"
       ref={ref}
-      className="relative py-24 sm:py-32 section-bg section-border border-t"
+      className="relative py-section-mobile md:py-section section-bg section-border"
     >
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="container mx-auto px-6 md:px-12 lg:px-16 max-w-7xl">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.6, ease: 'easeOut' }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl sm:text-5xl font-bold mb-4 text-foreground">
+          <h2 className="text-section font-normal mb-4 text-foreground">
             Our Projects
           </h2>
-          <p className="text-xl text-gray-400 max-w-2xl mx-auto mb-8">
+          <p className="text-body-lg text-text-secondary max-w-2xl mx-auto mb-8 opacity-70">
             Showcasing our engineering work and open-source contributions
           </p>
 
           {/* Language Filter */}
           {languages.length > 0 && (
-            <div className="flex flex-wrap items-center justify-center gap-3">
+            <div className="flex flex-wrap items-center justify-center gap-2">
               <button
                 onClick={() => setSelectedLanguage(null)}
-                className={`px-4 py-2 rounded-lg font-medium transition-colors duration-200 focus-visible:outline-none ${
+                className={`px-4 py-2 rounded-md text-small font-medium transition-colors duration-200 focus-visible:outline-none ${
                   selectedLanguage === null
-                    ? 'bg-primary text-background'
-                    : 'bg-gray-800 dark:bg-gray-800 light:bg-gray-200 text-gray-300 dark:text-gray-300 light:text-gray-700 hover:bg-gray-700 dark:hover:bg-gray-700 light:hover:bg-gray-300'
+                    ? 'bg-primary text-white dark:text-black'
+                    : 'bg-card-bg border text-text-secondary hover:border-primary'
                 }`}
               >
                 All
@@ -91,10 +91,10 @@ export default function Projects({ repositories }: ProjectsProps) {
                 <button
                   key={language}
                   onClick={() => setSelectedLanguage(language)}
-                  className={`px-4 py-2 rounded-lg font-medium transition-colors duration-200 focus-visible:outline-none ${
+                  className={`px-4 py-2 rounded-md text-small font-medium transition-colors duration-200 focus-visible:outline-none ${
                     selectedLanguage === language
-                      ? 'bg-primary text-background'
-                      : 'bg-gray-800 text-gray-300 hover:bg-gray-700'
+                      ? 'bg-primary text-white dark:text-black'
+                      : 'bg-card-bg border text-text-secondary hover:border-primary'
                   }`}
                 >
                   {language}
@@ -104,53 +104,59 @@ export default function Projects({ repositories }: ProjectsProps) {
           )}
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
           {filteredRepos.map((repo, index) => (
             <motion.div
               key={repo.id}
-              initial={{ opacity: 0, y: 30 }}
-              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-              transition={{ duration: 0.6, delay: index * 0.1, ease: 'easeOut' }}
-              whileHover={{ y: -8 }}
-              className="glass rounded-xl p-6 hover:border-primary/50 transition-all duration-300 group"
+              initial={{ opacity: 0, y: 40 }}
+              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
+              transition={{ 
+                duration: 0.6, 
+                delay: index * 0.08, 
+                ease: [0.33, 1, 0.68, 1] 
+              }}
+              whileHover={{ y: -8, scale: 1.02 }}
+              className="card-premium p-8 group relative"
             >
-              <div className="flex items-start justify-between mb-4">
-                <h3 className="text-xl font-bold text-foreground group-hover:text-primary transition-colors duration-300 flex-1">
+              <div className="flex items-start justify-between mb-5">
+                <h3 className="text-h3 font-medium text-foreground group-hover:text-primary transition-colors duration-300 flex-1 pr-2">
                   {repo.name}
                 </h3>
-                <a
+                <motion.a
                   href={repo.html_url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-gray-400 hover:text-primary transition-colors duration-200 ml-2 focus-visible:outline-none"
+                  className="text-text-secondary hover:text-primary transition-colors duration-200 focus-visible:outline-none flex-shrink-0"
                   aria-label={`View ${repo.name} on GitHub`}
+                  whileHover={{ scale: 1.2, rotate: 15 }}
+                  whileTap={{ scale: 0.9 }}
                 >
                   <ExternalLink size={20} />
-                </a>
+                </motion.a>
               </div>
 
-              <p className="text-gray-300 mb-4 text-sm leading-relaxed line-clamp-3">
+              <p className="text-body text-text-secondary mb-6 leading-relaxed line-clamp-3">
                 {repo.description || 'No description available'}
               </p>
 
-              <div className="flex items-center justify-between mt-6 pt-4 border-t border-gray-800">
+              <div className="flex items-center justify-between mt-8 pt-6 border-t">
                 <div className="flex items-center space-x-4">
                   {repo.language && (
-                    <div className="flex items-center space-x-2">
+                    <div className="flex items-center space-x-2 px-2.5 py-1 rounded-md bg-primary/10 border border-primary/20">
                       <div
-                        className="w-3 h-3 rounded-full"
+                        className="w-2.5 h-2.5 rounded-full"
                         style={{ backgroundColor: getLanguageColor(repo.language) }}
                       />
-                      <span className="text-sm text-gray-400">{repo.language}</span>
+                      <span className="text-small text-text-secondary font-medium">{repo.language}</span>
                     </div>
                   )}
-                  <div className="flex items-center space-x-1 text-gray-400">
-                    <Star size={16} />
-                    <span className="text-sm">{repo.stargazers_count}</span>
+                  <div className="flex items-center space-x-1.5 text-text-secondary">
+                    <Star size={14} className="fill-current" />
+                    <span className="text-small font-medium">{repo.stargazers_count}</span>
                   </div>
                 </div>
-                <div className="text-xs text-gray-500">
-                  Updated {formatDate(repo.updated_at)}
+                <div className="text-tiny text-text-tertiary">
+                  {formatDate(repo.updated_at)}
                 </div>
               </div>
             </motion.div>
@@ -158,7 +164,7 @@ export default function Projects({ repositories }: ProjectsProps) {
         </div>
 
         {filteredRepos.length === 0 && (
-          <div className="text-center text-gray-400 mt-12">
+          <div className="text-center text-text-secondary mt-12">
             No projects found for the selected language.
           </div>
         )}
